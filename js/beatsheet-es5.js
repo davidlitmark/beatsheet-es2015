@@ -18,38 +18,22 @@
     "use strict";
 
     // Establish the root object.
-    var root = this;
+    var root = window;
 
-    // Establish the helper object.
-    var Helper = function Helper(range, strategy) {
-        this.range = range;
-        this.strategy = strategy;
-    };
+    // The beatsheet object returns the beat sheet as a JSON
+    var beatsheet = function beatsheet(size, strategy) {
 
-    Helper.prototype = {
+        // Establish the available strategies
+        var strategies = {
+            fiction: function fiction() {
+                return [1 / size, 0.04, 0.08, 0.09, 0.1, 0.2, 0.24, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
+            },
+            bs2: function bs2() {
+                return [1 / size, 0.05, 0.09, 0.11, 0.18, 0.23, 0.27, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
+            }
+        };
 
-        // Return the beat sheet breakpoints
-        findBreakpoints: function findBreakpoints() {
-            return this.strategy();
-        },
-
-        // Function for calculating distributions
-        distribute: function distribute() {
-            var range = this.range;
-            return function (m) {
-                return Math.ceil(m * range);
-            };
-        },
-
-        // Find the distribution over the range. The range can be either the page count or word count.
-        findDistribution: function findDistribution() {
-            var breakpoints = this.findBreakpoints();
-            var distributor = this.distribute();
-            return breakpoints.map(distributor);
-        },
-
-        // Return a JSON with all the beats
-        populate: function populate(position) {
+        var populate = function populate(position) {
             return [{
                 "title": "The opening image",
                 "begin": position[0],
@@ -131,21 +115,7 @@
                 "begin": position[15],
                 "end": "NULL"
             }];
-        }
-    };
-
-    // Establish the available strategies
-    var strategies = {
-        fiction: function fiction() {
-            return [1 / this.range, 0.04, 0.08, 0.09, 0.1, 0.2, 0.24, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
-        },
-        bs2: function bs2() {
-            return [1 / this.range, 0.05, 0.09, 0.11, 0.18, 0.23, 0.27, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
-        }
-    };
-
-    // The beatsheet object returns the beat sheet as a JSON
-    var beatsheet = function beatsheet(size, strategy) {
+        };
 
         if (typeof size !== "number" || size <= 0) {
             throw new Error("The size must be a number larger than 0.");
@@ -155,9 +125,11 @@
             throw new Error("The specified strategy does not exist.");
         }
 
-        var helper = new Helper(size, strategies[strategy]);
-        var distribution = helper.findDistribution();
-        return helper.populate(distribution);
+        //var breakpoints = strategies[strategy]();
+        var distribution = strategies[strategy]().map(function (m) {
+            return Math.ceil(m * size);
+        });
+        return populate(distribution);
     };
 
     // Export the beatsheet object.
@@ -165,4 +137,4 @@
 
     // Current version
     beatsheet.version = "0.1.3";
-}).call(undefined);
+})();

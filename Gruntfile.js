@@ -56,5 +56,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-babel');
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'babel', 'uglify']);
+    grunt.registerTask('default', ['babel', 'uglify']);
+    grunt.registerTask('test', ['default', 'karma']);
 };
