@@ -20,14 +20,10 @@
 
         // Establish the available strategies
         var strategies = {
-            fiction() {
-                return [1 / size, 0.04, 0.08, 0.09, 0.1, 0.2, 0.24, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
-            },
-            bs2() {
-                return [1 / size, 0.05, 0.09, 0.11, 0.18, 0.23, 0.27, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
-            }
+            fiction: [1 / size, 0.04, 0.08, 0.09, 0.1, 0.2, 0.24, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1],
+            bs2: [1 / size, 0.05, 0.09, 0.11, 0.18, 0.23, 0.27, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1]
         };
-
+        
         var populate = function (position) {
             return [
                 {
@@ -141,7 +137,7 @@
             throw new Error('The specified strategy does not exist.');
         }
 
-        let distribution = strategies[strategy]().map((m) =>  Math.ceil(m * size));
+        let distribution = strategies[strategy].map((m) =>  Math.ceil(m * size));
         return populate(distribution);
     };
 

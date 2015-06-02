@@ -17,22 +17,22 @@
 
     "use strict";
 
-    // Establish the root object.
-    var root = window;
-
     // The beatsheet object returns the beat sheet as a JSON
     var beatsheet = function beatsheet(size, strategy) {
 
         // Establish the available strategies
+        //var strategies = {
+        //    fiction() {
+        //        return [1 / size, 0.04, 0.08, 0.09, 0.1, 0.2, 0.24, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
+        //    },
+        //    bs2() {
+        //        return [1 / size, 0.05, 0.09, 0.11, 0.18, 0.23, 0.27, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
+        //    }
+        //};
         var strategies = {
-            fiction: function fiction() {
-                return [1 / size, 0.04, 0.08, 0.09, 0.1, 0.2, 0.24, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
-            },
-            bs2: function bs2() {
-                return [1 / size, 0.05, 0.09, 0.11, 0.18, 0.23, 0.27, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1];
-            }
+            fiction: [1 / size, 0.04, 0.08, 0.09, 0.1, 0.2, 0.24, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1],
+            bs2: [1 / size, 0.05, 0.09, 0.11, 0.18, 0.23, 0.27, 0.5, 0.68, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97, 1]
         };
-
         var populate = function populate(position) {
             return [{
                 "title": "The opening image",
@@ -125,15 +125,14 @@
             throw new Error("The specified strategy does not exist.");
         }
 
-        //var breakpoints = strategies[strategy]();
-        var distribution = strategies[strategy]().map(function (m) {
+        var distribution = strategies[strategy].map(function (m) {
             return Math.ceil(m * size);
         });
         return populate(distribution);
     };
 
     // Export the beatsheet object.
-    root.beatsheet = beatsheet;
+    window.beatsheet = beatsheet;
 
     // Current version
     beatsheet.version = "0.1.3";
