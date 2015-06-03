@@ -47,6 +47,12 @@ module.exports = function(grunt) {
                     'js/beatsheet-es5.js': 'js/beatsheet.js'
                 }
             }
+        },
+        eslint: {
+            options: {
+                configFile: '.eslintrc'
+            },
+            target: ['js/beatsheet.js']
         }
     });
 
@@ -54,8 +60,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-eslint');
 
     // Default task.
-    grunt.registerTask('default', ['babel', 'uglify']);
+    grunt.registerTask('default', ['eslint', 'babel', 'uglify']);
     grunt.registerTask('test', ['default', 'karma']);
 };
