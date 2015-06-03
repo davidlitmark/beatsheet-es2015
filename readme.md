@@ -41,6 +41,9 @@ Modern browsers, and IE9+.
 
 ## Changelog
 
+0.2.0 (2015/06/03)
+Updated for ES2015, and refactored
+
 0.1.3 (2013/06/14)
 Can generate the original bs2 beat sheet
 
