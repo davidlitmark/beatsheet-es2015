@@ -26,7 +26,6 @@
     "babel-eslint": "^3.1.10",
     "grunt": "~0.4.1",
     "grunt-babel": "^5.0.0",
-    "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-eslint": "^14.0.0",
     "grunt-karma": "~0.4.4"
