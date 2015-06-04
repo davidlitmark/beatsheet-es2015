@@ -4,28 +4,6 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        jshint: {
-            options: {
-                curly: true,
-                eqeqeq: true,
-                immed: true,
-                latedef: true,
-                newcap: true,
-                noarg: true,
-                sub: true,
-                undef: true,
-                boss: true,
-                eqnull: true,
-                node: true,
-                globals: {
-                    it: true,
-                    describe: true,
-                    chai: true,
-                    beatsheet: true
-                }
-            },
-            all: ['Gruntfile.js','js/*.js','test/spec/*.js']
-        },
         uglify: {
             options: {
                 preserveComments: 'some'
@@ -57,7 +35,6 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-eslint');
